@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
+/* Class-based dark mode (next-themes adds .dark to <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light mode tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #FAF8F3;
+  --bg-subtle: #F4F0E8;
+  --fg: #1C1C1C;
+  --fg-muted: #6B6560;
+  --accent: #C97E2A;
+  --accent-hover: #B06D1F;
+  --border: #E2DDD5;
+  --card: #F0EBE1;
 }
 
+/* Dark mode tokens */
+.dark {
+  --bg: #141414;
+  --bg-subtle: #1E1C1A;
+  --fg: #E8E4DC;
+  --fg-muted: #9A9490;
+  --accent: #D4892E;
+  --accent-hover: #E09A3A;
+  --border: #2C2A27;
+  --card: #1E1C1A;
+}
+
+/* Map to Tailwind utilities */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --font-heading: var(--font-ibm-plex-serif);
+  --font-body: var(--font-lora);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-lora), Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Article body prose styles */
+.prose-article {
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--fg);
+}
+
+.prose-article h2 {
+  font-family: var(--font-ibm-plex-serif), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.prose-article h3 {
+  font-family: var(--font-ibm-plex-serif), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--fg);
+}
+
+.prose-article p {
+  margin-bottom: 1.5rem;
+}
+
+.prose-article blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--fg-muted);
+}
+
+.prose-article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prose-article strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.prose-article ul,
+.prose-article ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose-article li {
+  margin-bottom: 0.5rem;
 }
