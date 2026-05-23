@@ -2,7 +2,6 @@ import { ImageResponse } from "next/og";
 import { safeFetch } from "@/sanity/lib/client";
 import { nasihatPosterQuery } from "@/lib/queries";
 
-export const runtime = "nodejs";
 
 const themeConfig = {
   pasir: { bg: "#F5EDD8", text: "#3D2B0E", accent: "#A0621A", border: "#D4B87A" },
