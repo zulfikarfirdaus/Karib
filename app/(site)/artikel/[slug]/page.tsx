@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { safeFetch } from "@/sanity/lib/client";
-import { artikelDetailQuery } from "@/lib/queries";
+import { artikelDetailQuery, allArtikelQuery } from "@/lib/queries";
 import { ArticleBody } from "@/components/artikel/ArticleBody";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { PDFViewer } from "@/components/artikel/PDFViewer";
@@ -16,6 +16,11 @@ import type { Metadata } from "next";
 const getArtikel = cache((slug: string) =>
   safeFetch(artikelDetailQuery, { slug })
 );
+
+export async function generateStaticParams() {
+  const artikels = await safeFetch(allArtikelQuery, {});
+  return (artikels ?? []).map((a: { slug: string }) => ({ slug: a.slug }));
+}
 
 interface ArtikelDetailPageProps {
   params: Promise<{ slug: string }>;

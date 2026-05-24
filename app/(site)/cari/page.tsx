@@ -3,12 +3,13 @@ import { searchQuery } from "@/lib/queries";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { NasihatCard } from "@/components/nasihat/NasihatCard";
 import { CariInput } from "./CariInput";
+import { Suspense } from "react";
 
 interface CariPageProps {
   searchParams: Promise<{ q?: string }>;
 }
 
-export default async function CariPage({ searchParams }: CariPageProps) {
+async function CariResults({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const { q } = await searchParams;
   const query = q?.trim() ?? "";
 
@@ -21,16 +22,11 @@ export default async function CariPage({ searchParams }: CariPageProps) {
     (results?.artikels?.length ?? 0) + (results?.nasihats?.length ?? 0);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <div className="mb-10">
-        <h1 className="font-heading font-bold text-4xl tracking-tighter leading-none text-fg mb-6">
-          Cari
-        </h1>
-        <CariInput initialValue={query} />
-      </div>
+    <>
+      <CariInput initialValue={query} />
 
       {results && (
-        <div>
+        <div className="mt-10">
           <p className="text-xs font-heading text-fg-muted mb-6 uppercase tracking-widest">
             {total === 0
               ? `Tidak ada hasil untuk "${query}"`
@@ -78,6 +74,22 @@ export default async function CariPage({ searchParams }: CariPageProps) {
           </p>
         </div>
       )}
+    </>
+  );
+}
+
+export default async function CariPage({ searchParams }: CariPageProps) {
+  return (
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <div className="mb-10">
+        <h1 className="font-heading font-bold text-4xl tracking-tighter leading-none text-fg mb-6">
+          Cari
+        </h1>
+      </div>
+
+      <Suspense fallback={<div className="h-12 bg-card animate-pulse rounded-full" />}>
+        <CariResults searchParams={searchParams} />
+      </Suspense>
     </div>
   );
 }

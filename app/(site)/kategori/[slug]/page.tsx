@@ -1,9 +1,14 @@
 import { safeFetch } from "@/sanity/lib/client";
-import { kategoriPageQuery } from "@/lib/queries";
+import { kategoriPageQuery, allKategoriQuery } from "@/lib/queries";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { NasihatCard } from "@/components/nasihat/NasihatCard";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+
+export async function generateStaticParams() {
+  const kategoris = await safeFetch(allKategoriQuery, {});
+  return (kategoris ?? []).map((k: { slug: string }) => ({ slug: k.slug }));
+}
 
 interface KategoriPageProps {
   params: Promise<{ slug: string }>;

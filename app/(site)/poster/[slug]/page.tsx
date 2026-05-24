@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { safeFetch } from "@/sanity/lib/client";
-import { nasihatDetailQuery } from "@/lib/queries";
+import { nasihatDetailQuery, allNasihatQuery } from "@/lib/queries";
 
 const getNasihat = cache((slug: string) =>
   safeFetch(nasihatDetailQuery, { slug })
@@ -11,6 +11,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { DownloadPosterButton } from "@/components/nasihat/DownloadPosterButton";
 import type { Metadata } from "next";
+
+export async function generateStaticParams() {
+  const nasihats = await safeFetch(allNasihatQuery, {});
+  return (nasihats ?? []).map((n: { slug: string }) => ({ slug: n.slug }));
+}
 
 interface NasihatDetailPageProps {
   params: Promise<{ slug: string }>;

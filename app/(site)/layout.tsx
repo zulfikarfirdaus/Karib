@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -8,7 +9,9 @@ export default function SiteLayout({
 }) {
   return (
     <div className="min-h-[100dvh] flex flex-col bg-bg text-fg">
-      <Navbar />
+      <Suspense>
+        <Navbar />
+      </Suspense>
       <main className="flex-1 pt-20">{children}</main>
       <Footer />
     </div>
