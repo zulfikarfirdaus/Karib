@@ -103,7 +103,7 @@ export function Navbar() {
               searchOpen && "hidden sm:block"
             )}
           >
-            Ustadzi
+            Karib
           </Link>
 
           {searchOpen ? (

@@ -7,7 +7,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
             <p className="font-heading text-lg font-bold tracking-tight text-fg mb-2">
-              Ustadzi
+              Karib
             </p>
             <p className="text-sm text-fg-muted leading-relaxed">
               Platform ilmu Islam oleh Ustadz Muhammad Ibrahim Saleh, Lc.

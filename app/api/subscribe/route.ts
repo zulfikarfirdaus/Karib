@@ -54,14 +54,14 @@ async function sendConfirmation(email: string) {
   await resend.emails.send({
     from: FROM,
     to: email,
-    subject: "Konfirmasi langganan newsletter Ustadzi",
+    subject: "Konfirmasi langganan newsletter Karib",
     html: `
       <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 32px 24px; background: #FAF8F3;">
         <h2 style="font-family: sans-serif; font-size: 22px; font-weight: 700; color: #1C1C1C; margin: 0 0 16px;">
           Assalamu'alaikum,
         </h2>
         <p style="color: #6B6560; font-size: 16px; line-height: 1.7; margin: 0 0 24px;">
-          Terima kasih telah mendaftar newsletter Ustadzi. Klik tombol di bawah untuk mengkonfirmasi email Anda.
+          Terima kasih telah mendaftar newsletter Karib. Klik tombol di bawah untuk mengkonfirmasi email Anda.
         </p>
         <a href="${confirmUrl}" style="display: inline-block; background: #C97E2A; color: white; font-family: sans-serif; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 8px; text-decoration: none;">
           Konfirmasi Email

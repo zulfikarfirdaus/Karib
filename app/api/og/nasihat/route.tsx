@@ -60,7 +60,7 @@ export async function GET(request: Request) {
               display: "flex",
             }}
           >
-            {nasihat.kategori?.nama ?? "Ustadzi"}
+            {nasihat.kategori?.nama ?? "Karib"}
           </span>
         </div>
 
@@ -100,7 +100,7 @@ export async function GET(request: Request) {
               display: "flex",
             }}
           >
-            {nasihat.narasumber ?? "Ustadzi"}
+            {nasihat.narasumber ?? "Karib"}
           </div>
           {nasihat.referensiKitab && (
             <div

@@ -10,7 +10,7 @@ export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
-  title: "Ustadzi CMS",
+  title: "Karib CMS",
   schema: {
     types: schemaTypes,
   },

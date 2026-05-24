@@ -35,8 +35,8 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "/tmp/ustadzi-next/types/**/*.ts",
-    "/tmp/ustadzi-next/dev/types/**/*.ts"
+    "/tmp/karib-next/types/**/*.ts",
+    "/tmp/karib-next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

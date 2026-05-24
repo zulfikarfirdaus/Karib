@@ -19,8 +19,8 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: {
-    default: "Ustadzi — Ilmu & Hikmah Islam",
-    template: "%s | Ustadzi",
+    default: "Karib — Ilmu & Hikmah Islam",
+    template: "%s | Karib",
   },
   description:
     "Platform ilmu Islam dari Ustadz Muhammad Ibrahim Saleh, Lc — artikel mendalam dan nasihat singkat berdasarkan Al-Quran dan Sunnah.",
