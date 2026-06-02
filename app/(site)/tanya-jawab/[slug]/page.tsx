@@ -39,7 +39,7 @@ export default async function TanyaJawabDetailPage({ params }: TanyaJawabDetailP
 
   if (!item) notFound();
 
-  const related: Parameters<typeof TanyaJawabCard>[0]["item"][] = item.related ?? [];
+  const related: { _id: string; pertanyaan: string; slug: string; kategori?: { nama: string; slug: string }; tanggalTerbit: string }[] = item.related ?? [];
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const pageUrl = `${siteUrl}/tanya-jawab/${slug}`;
 
