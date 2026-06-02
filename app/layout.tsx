@@ -19,11 +19,11 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: {
-    default: "Karib — Ilmu & Hikmah Islam",
+    default: "Karib: Ilmu & Hikmah Islam",
     template: "%s | Karib",
   },
   description:
-    "Platform ilmu Islam dari Ustadz Muhammad Ibrahim Saleh, Lc — artikel mendalam dan nasihat singkat berdasarkan Al-Quran dan Sunnah.",
+    "Platform ilmu Islam dari Ustadz Muhammad Ibrahim Saleh, Lc. Berisi artikel mendalam dan nasihat singkat berdasarkan Al-Quran dan Sunnah.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),

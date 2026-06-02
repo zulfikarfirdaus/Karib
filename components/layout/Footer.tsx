@@ -1,69 +1,42 @@
 import Link from "next/link";
 
+const navLinks = [
+  { href: "/", label: "Beranda" },
+  { href: "/artikel", label: "Artikel" },
+  { href: "/tanya-jawab", label: "Tanya Jawab" },
+  { href: "/poster", label: "Poster" },
+  { href: "/profil", label: "Profil" },
+];
+
 export function Footer() {
   return (
-    <footer className="border-t border-border">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div>
-            <p className="font-heading text-lg font-bold tracking-tight text-fg mb-2">
-              Karib
-            </p>
-            <p className="text-sm text-fg-muted leading-relaxed">
-              Platform ilmu Islam oleh Ustadz Muhammad Ibrahim Saleh, Lc.
-              Berdasarkan Al-Quran dan Sunnah.
-            </p>
-          </div>
+    <footer className="bg-[#1C1C1C] dark:bg-[#FAF8F3]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-5">
+        <div className="flex flex-col items-center gap-6">
+          <p className="font-heading text-lg font-bold tracking-tight text-[#E8E4DC] dark:text-[#1C1C1C]">
+            Karib
+          </p>
 
-          <div>
-            <p className="font-heading text-xs font-semibold uppercase tracking-widest text-fg-muted mb-4">
-              Navigasi
-            </p>
-            <ul className="space-y-2">
-              {[
-                { href: "/", label: "Beranda" },
-                { href: "/artikel", label: "Artikel" },
-                { href: "/poster", label: "Poster" },
-                { href: "/profil", label: "Profil Ustadz" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-fg-muted hover:text-fg transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="font-heading text-xs font-semibold uppercase tracking-widest text-fg-muted mb-4">
-              Kategori
-            </p>
-            <ul className="space-y-2">
-              {["Aqidah", "Fiqih", "Muamalah"].map((kat) => (
-                <li key={kat}>
-                  <Link
-                    href={`/kategori/${kat.toLowerCase()}`}
-                    className="text-sm text-fg-muted hover:text-fg transition-colors"
-                  >
-                    {kat}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-[#9A9490] dark:text-[#6B6560] hover:text-[#E8E4DC] dark:hover:text-[#1C1C1C] transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        <div className="border-t border-border mt-10 pt-6 text-center text-xs text-fg-muted">
+        <div className="border-t border-[#2C2C2C] dark:border-[#D8D0C4] mt-10 pt-4 text-center text-xs text-[#9A9490] dark:text-[#6B6560]">
           Created by{" "}
           <a
             href="https://spladestudio.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-fg transition-colors"
+            className="hover:text-[#E8E4DC] dark:hover:text-[#1C1C1C] transition-colors"
           >
             Splade Studio
           </a>

@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Poster",
-  description: "Kata-kata hikmah Islam dari Ustadz Muhammad Ibrahim Saleh, Lc — dapat diunduh sebagai poster.",
+  description: "Kata-kata hikmah Islam dari Ustadz Muhammad Ibrahim Saleh, Lc, dapat diunduh sebagai poster.",
 };
 
 async function NasihatGrid() {
@@ -31,7 +31,7 @@ async function NasihatGrid() {
 
 export default async function NasihatPage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-32 pb-12">
       <div className="mb-10">
         <p className="text-xs font-heading uppercase tracking-widest text-accent mb-2">
           Hikmah

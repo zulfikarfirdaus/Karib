@@ -1,10 +1,9 @@
 "use client";
 
-import { Sun } from "@phosphor-icons/react/dist/csr/Sun";
-import { Moon } from "@phosphor-icons/react/dist/csr/Moon";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
-export function ThemeToggle() {
+export function ThemeToggle({ isOverlay = false }: { isOverlay?: boolean }) {
   const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -21,15 +20,18 @@ export function ThemeToggle() {
     } catch {}
   }
 
-  if (!mounted) return <div className="w-9 h-9" />;
+  if (!mounted) return <div className="w-12 h-8" />;
 
   return (
     <button
       onClick={toggle}
       aria-label="Toggle tema"
-      className="w-9 h-9 flex items-center justify-center rounded-full text-fg-muted hover:text-fg hover:bg-card transition-colors"
+      className={cn(
+        "h-8 px-1 font-heading text-sm font-medium transition-colors",
+        isOverlay ? "text-white/70 hover:text-white" : "text-fg-muted hover:text-fg"
+      )}
     >
-      {isDark ? <Sun size={18} weight="regular" /> : <Moon size={18} weight="regular" />}
+      {isDark ? "Light Mode" : "Dark Mode"}
     </button>
   );
 }

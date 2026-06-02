@@ -30,6 +30,17 @@ export const nasihatCardFragment = groq`
   tanggalTerbit
 `;
 
+// Tanya Jawab card fragment
+export const tanyaJawabCardFragment = groq`
+  _id,
+  pertanyaan,
+  "slug": slug.current,
+  ringkasan,
+  ${kategoriFragment},
+  tanggalTerbit,
+  tags
+`;
+
 // Home page
 export const homeQuery = groq`{
   "featuredArtikel": *[_type == "artikel"] | order(tanggalTerbit desc)[0] {
@@ -40,6 +51,9 @@ export const homeQuery = groq`{
   },
   "latestNasihat": *[_type == "nasihat"] | order(tanggalTerbit desc)[0..5] {
     ${nasihatCardFragment}
+  },
+  "latestTanyaJawab": *[_type == "tanyaJawab"] | order(tanggalTerbit desc)[0..5] {
+    ${tanyaJawabCardFragment}
   },
   "kategoris": *[_type == "kategori"] | order(nama asc) {
     _id, nama, "slug": slug.current
@@ -74,6 +88,30 @@ export const artikelDetailQuery = groq`
     tags,
     "related": *[_type == "artikel" && kategori._ref == ^.kategori._ref && slug.current != $slug] | order(tanggalTerbit desc)[0..2] {
       ${artikelCardFragment}
+    }
+  }
+`;
+
+// Tanya Jawab listing
+export const allTanyaJawabQuery = groq`
+  *[_type == "tanyaJawab"] | order(tanggalTerbit desc) {
+    ${tanyaJawabCardFragment}
+  }
+`;
+
+// Tanya Jawab detail
+export const tanyaJawabDetailQuery = groq`
+  *[_type == "tanyaJawab" && slug.current == $slug][0] {
+    _id,
+    pertanyaan,
+    "slug": slug.current,
+    ringkasan,
+    ${kategoriFragment},
+    jawaban,
+    tanggalTerbit,
+    tags,
+    "related": *[_type == "tanyaJawab" && kategori._ref == ^.kategori._ref && slug.current != $slug] | order(tanggalTerbit desc)[0..2] {
+      ${tanyaJawabCardFragment}
     }
   }
 `;

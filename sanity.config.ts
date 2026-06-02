@@ -24,6 +24,9 @@ export default defineConfig({
               .title("Artikel")
               .child(S.documentTypeList("artikel").title("Semua Artikel")),
             S.listItem()
+              .title("Tanya Jawab")
+              .child(S.documentTypeList("tanyaJawab").title("Semua Tanya Jawab")),
+            S.listItem()
               .title("Nasihat Singkat")
               .child(S.documentTypeList("nasihat").title("Semua Nasihat")),
             S.listItem()

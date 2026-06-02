@@ -22,7 +22,7 @@ export async function safeFetch<T = any>(
   params?: Record<string, unknown>
 ): Promise<T | null> {
   "use cache";
-  cacheLife("minutes");
+  cacheLife("hours");
   try {
     return await client.fetch<T>(query, params ?? {});
   } catch {

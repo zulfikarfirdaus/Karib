@@ -129,7 +129,7 @@ export default async function ArtikelDetailPage({ params }: ArtikelDetailPagePro
       {artikel.isi && <ArticleBody content={artikel.isi} />}
 
       {/* Bottom share */}
-      <div className="max-w-[680px] mx-auto mt-12 pt-8 border-t border-border flex items-center justify-between flex-wrap gap-4">
+      <div className="max-w-[680px] mx-auto mt-12 pt-8 flex items-center justify-between flex-wrap gap-4">
         <ShareButtons url={pageUrl} title={artikel.judul} />
         {artikel.tags && artikel.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -147,8 +147,8 @@ export default async function ArtikelDetailPage({ params }: ArtikelDetailPagePro
 
       {/* Related articles */}
       {related.length > 0 && (
-        <section className="mt-16 max-w-[680px] mx-auto">
-          <h2 className="font-heading font-bold text-xl tracking-tight text-fg mb-6 pb-4 border-b border-border">
+        <section className="mt-16 max-w-[680px] mx-auto border-t border-border pt-10">
+          <h2 className="font-heading font-bold text-xl tracking-tight text-fg mb-6">
             Artikel Terkait
           </h2>
           <div className="flex flex-col divide-y divide-border">

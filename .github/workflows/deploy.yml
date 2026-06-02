@@ -1,4 +1,4 @@
-name: Build & Deploy to Netlify
+name: Deploy to Cloudflare Pages
 
 on:
   push:
@@ -7,20 +7,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     env:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      NEXT_TELEMETRY_DISABLED: "1"
       NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
       NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
       SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
-      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-      RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
-      RESEND_FROM_NAME: ${{ secrets.RESEND_FROM_NAME }}
-      NEXT_PUBLIC_SITE_URL: "https://karib-id.netlify.app"
+      NEXT_PUBLIC_SITE_URL: "https://karib.pages.dev"
+      NEXT_TELEMETRY_DISABLED: "1"
     steps:
       - uses: actions/checkout@v4
 
@@ -32,5 +27,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Netlify build + deploy
-        run: npx netlify-cli deploy --build --prod
+      - name: Build for Cloudflare Pages
+        run: npx @opennextjs/cloudflare build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: c057790ce7e574569a70da0c021e9037
+          command: pages deploy .open-next/assets --project-name=karib --branch=main

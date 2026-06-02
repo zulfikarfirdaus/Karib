@@ -11,16 +11,11 @@ export function NasihatStrip({ nasihats }: NasihatStripProps) {
 
   return (
     <section className="border-y border-border py-12 bg-bg-subtle">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="font-heading font-bold text-2xl tracking-tight text-fg">
+          <h2 className="font-heading font-bold text-2xl tracking-tight text-fg">
               Poster
             </h2>
-            <p className="text-sm font-body text-fg-muted mt-1">
-              Kutipan hikmah ulama, siap dibagikan
-            </p>
-          </div>
           <Link
             href="/poster"
             className="flex items-center gap-1.5 text-sm font-heading text-fg-muted hover:text-fg transition-colors"
@@ -30,7 +25,7 @@ export function NasihatStrip({ nasihats }: NasihatStripProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
           {nasihats.slice(0, 3).map((nasihat) => (
             <NasihatCard key={nasihat._id} nasihat={nasihat} />
           ))}

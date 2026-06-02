@@ -33,10 +33,10 @@ export function NasihatCard({ nasihat, className }: NasihatCardProps) {
   const accentColor = accentStyles[tema] ?? accentStyles.pasir;
 
   return (
-    <Link href={`/poster/${nasihat.slug}`} className={cn("block group", className)}>
+    <Link href={`/poster/${nasihat.slug}`} className={cn("block group h-full", className)}>
       <article
         className={cn(
-          "rounded-2xl p-6 min-h-[200px] flex flex-col justify-between transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg",
+          "rounded-2xl p-6 h-full flex flex-col justify-between transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg",
           cardBg
         )}
       >

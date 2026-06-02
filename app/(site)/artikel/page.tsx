@@ -1,5 +1,5 @@
 import { safeFetch } from "@/sanity/lib/client";
-import { allArtikelQuery, allKategoriQuery, artikelByKategoriQuery } from "@/lib/queries";
+import { allArtikelQuery, allKategoriQuery, artikelByKategoriQuery, artikelDetailQuery } from "@/lib/queries";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { CategoryPills } from "@/components/ui/CategoryPills";
 import type { Metadata } from "next";
@@ -20,6 +20,13 @@ async function ArtikelList({ searchParams }: { searchParams: Promise<{ kategori?
     kategoriSlug ? artikelByKategoriQuery : allArtikelQuery,
     kategoriSlug ? { slug: kategoriSlug } : {}
   ) ?? [];
+
+  // Preload first 8 detail pages into cache
+  void Promise.allSettled(
+    artikels.slice(0, 8).map((a: { slug: string }) =>
+      safeFetch(artikelDetailQuery, { slug: a.slug })
+    )
+  );
 
   if (artikels.length === 0) {
     return (
@@ -44,7 +51,7 @@ export default async function ArtikelPage({ searchParams }: ArtikelPageProps) {
   const kategoris = await safeFetch(allKategoriQuery) ?? [];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-32 pb-12">
       <div className="mb-10">
         <p className="text-xs font-heading uppercase tracking-widest text-accent mb-2">
           Ilmu Islam
