@@ -41,4 +41,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: c057790ce7e574569a70da0c021e9037
-          command: deploy
+          command: deploy --no-bundle
