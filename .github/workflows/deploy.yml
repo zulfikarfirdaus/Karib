@@ -34,7 +34,13 @@ jobs:
         run: npm ci
 
       - name: Build for Cloudflare Pages
-        run: npx @opennextjs/cloudflare build
+        run: |
+          npx @opennextjs/cloudflare build
+          # Pages requires _worker.js inside the deploy dir
+          if [ -f .open-next/worker.js ] && [ ! -f .open-next/assets/_worker.js ]; then
+            cp .open-next/worker.js .open-next/assets/_worker.js
+          fi
+          ls -la .open-next/assets/ | tail -10
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
