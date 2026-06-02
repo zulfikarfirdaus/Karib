@@ -33,18 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build for Cloudflare Pages
-        run: |
-          npx @opennextjs/cloudflare build
-          # Pages requires _worker.js inside the deploy dir
-          if [ -f .open-next/worker.js ] && [ ! -f .open-next/assets/_worker.js ]; then
-            cp .open-next/worker.js .open-next/assets/_worker.js
-          fi
-          ls -la .open-next/assets/ | tail -10
+      - name: Build for Cloudflare
+        run: npx @opennextjs/cloudflare build
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: c057790ce7e574569a70da0c021e9037
-          command: pages deploy .open-next/assets --project-name=karib --branch=main
+          command: deploy
