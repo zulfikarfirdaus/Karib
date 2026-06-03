@@ -5,13 +5,3 @@ compatibility_flags = ["nodejs_compat"]
 
 [assets]
 directory = ".open-next/assets"
-
-[[rules]]
-type = "CompiledWasm"
-globs = ["**/*.wasm", "**/*.wasm?module"]
-fallthrough = true
-
-[[rules]]
-type = "Data"
-globs = ["**/*.bin"]
-fallthrough = true

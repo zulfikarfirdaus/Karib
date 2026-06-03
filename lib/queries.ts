@@ -179,14 +179,3 @@ export const searchQuery = groq`{
     ${nasihatCardFragment}
   }
 }`;
-
-// OG poster nasihat
-export const nasihatPosterQuery = groq`
-  *[_type == "nasihat" && slug.current == $slug][0] {
-    teks,
-    tema,
-    narasumber,
-    referensiKitab,
-    ${kategoriFragment}
-  }
-`;
