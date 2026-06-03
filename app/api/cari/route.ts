@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { NextResponse } from "next/server";
 import { safeFetch } from "@/sanity/lib/client";
 import { searchQuery } from "@/lib/queries";
