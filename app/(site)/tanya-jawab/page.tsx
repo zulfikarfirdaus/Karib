@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { safeFetch } from "@/sanity/lib/client";
 import { allTanyaJawabQuery } from "@/lib/queries";
 import { TanyaJawabCard } from "@/components/tanyajawab/TanyaJawabCard";

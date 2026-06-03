@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { safeFetch } from "@/sanity/lib/client";
 import { homeQuery, artikelDetailQuery, tanyaJawabDetailQuery } from "@/lib/queries";
 import { HeroSection } from "@/components/home/HeroSection";

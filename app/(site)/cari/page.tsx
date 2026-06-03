@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { safeFetch } from "@/sanity/lib/client";
 import { searchQuery } from "@/lib/queries";
 import { ArticleCard } from "@/components/artikel/ArticleCard";

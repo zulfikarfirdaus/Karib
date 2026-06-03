@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { safeFetch } from "@/sanity/lib/client";
 import { allArtikelQuery, allKategoriQuery, artikelByKategoriQuery, artikelDetailQuery } from "@/lib/queries";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
