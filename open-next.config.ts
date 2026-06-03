@@ -23,9 +23,6 @@ const config: OpenNextConfig = {
       queue: "dummy",
     },
   },
-  imageOptimization: {
-    loader: "passthrough",
-  },
 };
 
 export default config;
