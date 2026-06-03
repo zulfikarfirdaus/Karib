@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
     loaderFile: "./lib/sanityImageLoader.ts",
   },
   experimental: {
-    useCache: true,
     optimizePackageImports: ["framer-motion", "@phosphor-icons/react"],
   },
 };

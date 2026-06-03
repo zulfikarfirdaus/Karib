@@ -20,7 +20,6 @@ export async function safeFetch<T = any>(
   query: string,
   params?: Record<string, unknown>
 ): Promise<T | null> {
-  "use cache";
   try {
     return await client.fetch<T>(query, params ?? {});
   } catch {
