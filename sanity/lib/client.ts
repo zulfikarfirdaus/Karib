@@ -1,5 +1,4 @@
 import { createClient } from "next-sanity";
-import { cacheLife } from "next/cache";
 
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
@@ -22,7 +21,6 @@ export async function safeFetch<T = any>(
   params?: Record<string, unknown>
 ): Promise<T | null> {
   "use cache";
-  cacheLife("hours");
   try {
     return await client.fetch<T>(query, params ?? {});
   } catch {
