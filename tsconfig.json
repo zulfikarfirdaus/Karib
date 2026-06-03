@@ -39,6 +39,8 @@
     "/tmp/karib-next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "sanity.config.ts",
+    "sanity/schemaTypes"
   ]
 }
