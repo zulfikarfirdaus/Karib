@@ -1,34 +1,5 @@
-name: Deploy to Cloudflare Pages
-
-# Cloudflare Pages builds and deploys this project automatically via Git
-# integration. This workflow exists only to trigger an immediate deployment
-# via the API on push (without waiting for Cloudflare's own push detection).
+# Cloudflare Pages builds and deploys automatically via Git integration.
+# No CI needed — every push to main triggers a build in Cloudflare's environment.
 #
-# To set up or reconfigure the project, run locally:
+# To reconfigure the project run:
 #   CLOUDFLARE_API_TOKEN=xxx SANITY_API_TOKEN=xxx npm run pages:setup
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Cloudflare Pages deployment
-        run: |
-          RESPONSE=$(curl -s -X POST \
-            "https://api.cloudflare.com/client/v4/accounts/c057790ce7e574569a70da0c021e9037/pages/projects/karib/deployments" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json")
-          echo "$RESPONSE" | python3 -c "
-          import sys, json
-          d = json.load(sys.stdin)
-          if d.get('success'):
-              r = d['result']
-              print('Deployment started:', r.get('id','?'))
-              print('URL:', r.get('url','(pending)'))
-          else:
-              print('Error:', d.get('errors'))
-              sys.exit(1)
-          "
