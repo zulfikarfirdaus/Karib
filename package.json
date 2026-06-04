@@ -6,6 +6,7 @@
     "dev": "node scripts/dev.js",
     "build": "next build",
     "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:setup": "node scripts/setup-pages.mjs",
     "start": "next start"
   },
   "dependencies": {
