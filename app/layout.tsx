@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Serif, Lora } from "next/font/google";
+import { IBM_Plex_Serif, Lora, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -14,6 +14,13 @@ const ibmPlexSerif = IBM_Plex_Serif({
 const lora = Lora({
   variable: "--font-lora",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -38,7 +45,8 @@ export default function RootLayout({
     <html
       lang="id"
       suppressHydrationWarning
-      className={`${ibmPlexSerif.variable} ${lora.variable}`}
+      data-scroll-behavior="smooth"
+      className={`${ibmPlexSerif.variable} ${lora.variable} ${plusJakarta.variable}`}
     >
       <body suppressHydrationWarning>
         {/* Anti-FOUC: must be beforeInteractive to run before hydration */}

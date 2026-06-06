@@ -1,9 +1,15 @@
 export const runtime = "edge";
 
 import { safeFetch } from "@/sanity/lib/client";
-import { allArtikelQuery, allKategoriQuery, artikelByKategoriQuery, artikelDetailQuery } from "@/lib/queries";
+import {
+  paginatedArtikelQuery,
+  paginatedArtikelByKategoriQuery,
+  allKategoriQuery,
+  artikelDetailQuery,
+} from "@/lib/queries";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { CategoryPills } from "@/components/ui/CategoryPills";
+import { Pagination } from "@/components/ui/Pagination";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -13,19 +19,29 @@ export const metadata: Metadata = {
 };
 
 interface ArtikelPageProps {
-  searchParams: Promise<{ kategori?: string }>;
+  searchParams: Promise<{ kategori?: string; page?: string }>;
 }
 
-async function ArtikelList({ searchParams }: { searchParams: Promise<{ kategori?: string }> }) {
-  const { kategori: kategoriSlug } = await searchParams;
-  const artikels = await safeFetch(
-    kategoriSlug ? artikelByKategoriQuery : allArtikelQuery,
-    kategoriSlug ? { slug: kategoriSlug } : {}
-  ) ?? [];
+const PER_PAGE = 10;
 
-  // Preload first 8 detail pages into cache
+async function ArtikelList({ searchParams }: { searchParams: Promise<{ kategori?: string; page?: string }> }) {
+  const { kategori: kategoriSlug, page: pageParam } = await searchParams;
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const start = (page - 1) * PER_PAGE;
+  const end = start + PER_PAGE;
+
+  const data = await safeFetch<{ total: number; items: Parameters<typeof ArticleCard>[0]["artikel"][] }>(
+    kategoriSlug ? paginatedArtikelByKategoriQuery : paginatedArtikelQuery,
+    kategoriSlug ? { slug: kategoriSlug, start, end } : { start, end }
+  );
+
+  const artikels = data?.items ?? [];
+  const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / PER_PAGE);
+
+  // Warm detail cache for visible articles
   void Promise.allSettled(
-    artikels.slice(0, 8).map((a: { slug: string }) =>
+    artikels.slice(0, 6).map((a: { slug: string }) =>
       safeFetch(artikelDetailQuery, { slug: a.slug })
     )
   );
@@ -41,11 +57,16 @@ async function ArtikelList({ searchParams }: { searchParams: Promise<{ kategori?
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      {artikels.map((artikel: Parameters<typeof ArticleCard>[0]["artikel"]) => (
-        <ArticleCard key={artikel._id} artikel={artikel} variant="default" />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {artikels.map((artikel: Parameters<typeof ArticleCard>[0]["artikel"]) => (
+          <ArticleCard key={artikel._id} artikel={artikel} variant="default" />
+        ))}
+      </div>
+      <Suspense>
+        <Pagination currentPage={page} totalPages={totalPages} />
+      </Suspense>
+    </>
   );
 }
 
@@ -53,12 +74,9 @@ export default async function ArtikelPage({ searchParams }: ArtikelPageProps) {
   const kategoris = await safeFetch(allKategoriQuery) ?? [];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-32 pb-12">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-12">
       <div className="mb-10">
-        <p className="text-xs font-heading uppercase tracking-widest text-accent mb-2">
-          Ilmu Islam
-        </p>
-        <h1 className="font-heading font-bold text-4xl tracking-tighter leading-none text-fg">
+        <h1 className="font-display font-bold text-4xl tracking-tighter leading-none text-fg">
           Artikel
         </h1>
       </div>

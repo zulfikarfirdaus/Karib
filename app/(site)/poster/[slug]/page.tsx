@@ -1,3 +1,6 @@
+export const runtime = "edge";
+export const revalidate = 3600;
+
 import { cache } from "react";
 import { safeFetch } from "@/sanity/lib/client";
 import { nasihatDetailQuery, allNasihatQuery } from "@/lib/queries";
@@ -43,7 +46,7 @@ export default async function NasihatDetailPage({ params }: NasihatDetailPagePro
   const pageUrl = `${siteUrl}/poster/${slug}`;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-24 pb-12">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-xs font-heading text-fg-muted mb-8">
         <Link href="/poster" className="hover:text-fg transition-colors">

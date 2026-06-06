@@ -84,7 +84,7 @@ export default async function CariPage({ searchParams }: CariPageProps) {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-10">
-        <h1 className="font-heading font-bold text-4xl tracking-tighter leading-none text-fg mb-6">
+        <h1 className="font-display font-bold text-4xl tracking-tighter leading-none text-fg mb-6">
           Cari
         </h1>
       </div>

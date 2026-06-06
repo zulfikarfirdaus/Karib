@@ -18,10 +18,13 @@ export const previewClient = createClient({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function safeFetch<T = any>(
   query: string,
-  params?: Record<string, unknown>
+  params?: Record<string, unknown>,
+  revalidate = 300
 ): Promise<T | null> {
   try {
-    return await client.fetch<T>(query, params ?? {});
+    return await client.fetch<T>(query, params ?? {}, {
+      next: { revalidate },
+    });
   } catch {
     return null;
   }

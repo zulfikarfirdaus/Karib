@@ -39,10 +39,21 @@
   --color-card: var(--card);
   --font-heading: var(--font-ibm-plex-serif);
   --font-body: var(--font-lora);
+  --font-display: var(--font-jakarta);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Hero wordmark vertical position: centred between navbar and the man's head on mobile */
+.hero-wordmark-pos {
+  top: clamp(72px, 11vh, 130px);
+}
+@media (min-width: 640px) {
+  .hero-wordmark-pos {
+    top: clamp(64px, 9vh, 100px);
+  }
 }
 
 body {

@@ -10,11 +10,13 @@ const navLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#1C1C1C] dark:bg-[#FAF8F3]">
+    <footer className="bg-[#1C1C1C] dark:bg-[#F4F0E8]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-5">
         <div className="flex flex-col items-center gap-6">
-          <p className="font-heading text-lg font-bold tracking-tight text-[#E8E4DC] dark:text-[#1C1C1C]">
-            Karib
+          <p className="font-display font-extrabold text-[#F4F0E8] dark:text-[#1C1C1C] uppercase"
+            style={{ fontSize: 18, letterSpacing: "-0.025em", lineHeight: 0.88 }}
+          >
+            KARIB
           </p>
 
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3">

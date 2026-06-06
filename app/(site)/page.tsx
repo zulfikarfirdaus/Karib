@@ -36,7 +36,7 @@ export default async function HomePage() {
     <>
       <HeroSection />
 
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[13fr_7fr] gap-10 lg:gap-14">
           <ArticleGrid artikels={latestArtikel} />
           <div>

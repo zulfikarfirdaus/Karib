@@ -2,17 +2,17 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const themeStyles: Record<string, string> = {
-  pasir: "bg-white text-[#3D2B0E]",
+  pasir: "bg-[#C96530] text-[#FFF5EC]",
   zaitun: "bg-[#2C3A2A] text-[#D4E0D0]",
-  arang: "bg-[#1E1C1A] text-[#E8E4DC]",
-  krem: "bg-[#B85C1A] text-[#FFF5EC]",
+  arang: "bg-[#38342F] text-[#E8E4DC]",
+  krem: "bg-white text-[#2C2218]",
 };
 
 const accentStyles: Record<string, string> = {
-  pasir: "text-[#A0621A]",
+  pasir: "text-[#FFD4A8]",
   zaitun: "text-[#8FBF84]",
   arang: "text-[#C97E2A]",
-  krem: "text-[#FFD9B0]",
+  krem: "text-[#A0621A]",
 };
 
 interface NasihatCardProps {

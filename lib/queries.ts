@@ -73,7 +73,25 @@ export const artikelByKategoriQuery = groq`
   }
 `;
 
-// Artikel detail (includes related articles to avoid a second round-trip)
+export const paginatedArtikelQuery = groq`
+{
+  "total": count(*[_type == "artikel"]),
+  "items": *[_type == "artikel"] | order(tanggalTerbit desc) [$start...$end] {
+    ${artikelCardFragment}
+  }
+}
+`;
+
+export const paginatedArtikelByKategoriQuery = groq`
+{
+  "total": count(*[_type == "artikel" && kategori->slug.current == $slug]),
+  "items": *[_type == "artikel" && kategori->slug.current == $slug] | order(tanggalTerbit desc) [$start...$end] {
+    ${artikelCardFragment}
+  }
+}
+`;
+
+// Artikel detail — no related (related is fetched separately for streaming)
 export const artikelDetailQuery = groq`
   *[_type == "artikel" && slug.current == $slug][0] {
     _id,
@@ -82,14 +100,19 @@ export const artikelDetailQuery = groq`
     ringkasan,
     gambarUtama { asset->, alt },
     ${kategoriFragment},
+    "kategorRef": kategori._ref,
     isi,
     filePdf { asset-> },
     tanggalTerbit,
-    tags,
-    "related": *[_type == "artikel" && kategori._ref == ^.kategori._ref && slug.current != $slug] | order(tanggalTerbit desc)[0..2] {
-      ${artikelCardFragment}
-    }
+    tags
   }
+`;
+
+export const relatedArtikelQuery = groq`
+  *[_type == "artikel" && slug.current != $slug] {
+    ${artikelCardFragment},
+    "_score": select(kategori._ref == $kategorRef => 1, 0)
+  } | order(_score desc, tanggalTerbit desc)[0..2]
 `;
 
 // Tanya Jawab listing
@@ -99,7 +122,16 @@ export const allTanyaJawabQuery = groq`
   }
 `;
 
-// Tanya Jawab detail
+export const paginatedTanyaJawabQuery = groq`
+{
+  "total": count(*[_type == "tanyaJawab"]),
+  "items": *[_type == "tanyaJawab"] | order(tanggalTerbit desc) [$start...$end] {
+    ${tanyaJawabCardFragment}
+  }
+}
+`;
+
+// Tanya Jawab detail — related is fetched separately for streaming
 export const tanyaJawabDetailQuery = groq`
   *[_type == "tanyaJawab" && slug.current == $slug][0] {
     _id,
@@ -107,12 +139,16 @@ export const tanyaJawabDetailQuery = groq`
     "slug": slug.current,
     ringkasan,
     ${kategoriFragment},
+    "kategorRef": kategori._ref,
     jawaban,
     tanggalTerbit,
-    tags,
-    "related": *[_type == "tanyaJawab" && kategori._ref == ^.kategori._ref && slug.current != $slug] | order(tanggalTerbit desc)[0..2] {
-      ${tanyaJawabCardFragment}
-    }
+    tags
+  }
+`;
+
+export const relatedTanyaJawabQuery = groq`
+  *[_type == "tanyaJawab" && kategori._ref == $kategorRef && slug.current != $slug] | order(tanggalTerbit desc)[0..2] {
+    ${tanyaJawabCardFragment}
   }
 `;
 

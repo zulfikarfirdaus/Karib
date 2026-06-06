@@ -24,7 +24,7 @@ export function ArticleGrid({ artikels }: ArticleGridProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="font-heading font-bold text-2xl tracking-tight text-fg">Artikel</h2>
+        <h2 className="font-display font-bold text-2xl tracking-tight text-fg">Artikel</h2>
         <Link
           href="/artikel"
           className="flex items-center gap-1 text-xs font-heading text-fg-muted hover:text-fg transition-colors"

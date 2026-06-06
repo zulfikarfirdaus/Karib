@@ -1,5 +1,0 @@
-# Cloudflare Pages builds and deploys automatically via Git integration.
-# No CI needed — every push to main triggers a build in Cloudflare's environment.
-#
-# To reconfigure the project run:
-#   CLOUDFLARE_API_TOKEN=xxx SANITY_API_TOKEN=xxx npm run pages:setup

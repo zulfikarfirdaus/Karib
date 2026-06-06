@@ -1,3 +1,6 @@
+export const runtime = "edge";
+export const revalidate = 3600;
+
 import { safeFetch } from "@/sanity/lib/client";
 import { kategoriPageQuery, allKategoriQuery } from "@/lib/queries";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
@@ -39,7 +42,7 @@ export default async function KategoriPage({ params }: KategoriPageProps) {
         <p className="text-xs font-heading uppercase tracking-widest text-accent mb-2">
           Kategori
         </p>
-        <h1 className="font-heading font-bold text-4xl tracking-tighter leading-none text-fg mb-3">
+        <h1 className="font-display font-bold text-4xl tracking-tighter leading-none text-fg mb-3">
           {kategori.nama}
         </h1>
         {kategori.deskripsi && (
@@ -53,7 +56,7 @@ export default async function KategoriPage({ params }: KategoriPageProps) {
       {/* Articles */}
       {artikels.length > 0 && (
         <section className="mb-14">
-          <h2 className="font-heading font-bold text-xl tracking-tight text-fg mb-6 pb-4 border-b border-border">
+          <h2 className="font-display font-bold text-xl tracking-tight text-fg mb-6 pb-4 border-b border-border">
             Artikel
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -67,7 +70,7 @@ export default async function KategoriPage({ params }: KategoriPageProps) {
       {/* Nasihat */}
       {nasihats.length > 0 && (
         <section>
-          <h2 className="font-heading font-bold text-xl tracking-tight text-fg mb-6 pb-4 border-b border-border">
+          <h2 className="font-display font-bold text-xl tracking-tight text-fg mb-6 pb-4 border-b border-border">
             Nasihat Singkat
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

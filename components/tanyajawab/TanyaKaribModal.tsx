@@ -40,7 +40,7 @@ export function TanyaKaribModal() {
                 <p className="text-[10px] font-heading uppercase tracking-widest text-accent mb-2">
                   Tanya Karib
                 </p>
-                <h2 className="font-heading font-bold text-2xl tracking-tight text-fg leading-none mb-3">
+                <h2 className="font-display font-bold text-2xl tracking-tight text-fg leading-none mb-3">
                   Ada Pertanyaan?
                 </h2>
                 <p className="text-sm text-fg-muted font-body leading-snug max-w-sm">

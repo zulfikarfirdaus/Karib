@@ -22,7 +22,7 @@ export function TanyaJawabStrip({ items }: TanyaJawabStripProps) {
   return (
     <div className="bg-white dark:bg-card rounded-2xl px-5 py-5">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="font-heading font-bold text-2xl tracking-tight text-fg">Tanya Jawab</h2>
+        <h2 className="font-display font-bold text-2xl tracking-tight text-fg">Tanya Jawab</h2>
         <Link
           href="/tanya-jawab"
           className="flex items-center gap-1 text-xs font-heading text-fg-muted hover:text-fg transition-colors"

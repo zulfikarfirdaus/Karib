@@ -22,13 +22,10 @@ export default async function ProfilPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-6 pt-36 pb-20">
+    <div className="max-w-2xl mx-auto px-6 pt-24 sm:pt-36 pb-20">
       {/* Profile header */}
       <header className="mb-16 pb-12 border-b border-border">
-        <p className="text-xs font-heading uppercase tracking-widest text-accent mb-5">
-          Tentang Ustadz
-        </p>
-        <h1 className="font-heading font-bold text-5xl sm:text-6xl tracking-tighter leading-none text-fg">
+        <h1 className="font-display font-bold text-5xl sm:text-6xl tracking-tighter leading-none text-fg">
           {profil.nama}{profil.gelar ? `, ${profil.gelar}` : ""}
         </h1>
 

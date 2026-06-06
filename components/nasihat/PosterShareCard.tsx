@@ -6,10 +6,10 @@ import { DownloadSimple } from "@phosphor-icons/react/dist/csr/DownloadSimple";
 import { ShareNetwork } from "@phosphor-icons/react/dist/csr/ShareNetwork";
 
 const themeColors = {
-  pasir: { bg: "#F5EDD8", text: "#3D2B0E", accent: "#A0621A", border: "#D4B87A" },
+  pasir: { bg: "#C96530", text: "#FFF5EC", accent: "#FFD4A8", border: "#E07840" },
   zaitun: { bg: "#2C3A2A", text: "#D4E0D0", accent: "#8FBF84", border: "#4A6347" },
-  arang: { bg: "#1E1C1A", text: "#E8E4DC", accent: "#C97E2A", border: "#3C3835" },
-  krem: { bg: "#FAF5EC", text: "#2C2218", accent: "#A0621A", border: "#E8DCC8" },
+  arang: { bg: "#38342F", text: "#E8E4DC", accent: "#C97E2A", border: "#5A5754" },
+  krem: { bg: "#FFFFFF", text: "#2C2218", accent: "#A0621A", border: "#E0D5C0" },
 } as const;
 
 interface PosterShareCardProps {

@@ -1,6 +1,9 @@
-import { cache } from "react";
+export const runtime = "edge";
+export const revalidate = 3600;
+
+import { cache, Suspense } from "react";
 import { safeFetch } from "@/sanity/lib/client";
-import { artikelDetailQuery, allArtikelQuery } from "@/lib/queries";
+import { artikelDetailQuery, relatedArtikelQuery, allArtikelQuery } from "@/lib/queries";
 import { ArticleBody } from "@/components/artikel/ArticleBody";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { PDFViewer } from "@/components/artikel/PDFViewer";
@@ -12,9 +15,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-// Deduplicated — generateMetadata and the page function share one fetch per request
 const getArtikel = cache((slug: string) =>
-  safeFetch(artikelDetailQuery, { slug })
+  safeFetch(artikelDetailQuery, { slug }, 3600)
 );
 
 export async function generateStaticParams() {
@@ -44,13 +46,33 @@ export async function generateMetadata({ params }: ArtikelDetailPageProps): Prom
   };
 }
 
+async function RelatedArticles({ slug, kategorRef }: { slug: string; kategorRef: string }) {
+  const related = await safeFetch<Parameters<typeof ArticleCard>[0]["artikel"][]>(
+    relatedArtikelQuery, { slug, kategorRef }, 3600
+  );
+  if (!related || related.length === 0) return null;
+
+  return (
+    <section className="mt-16 max-w-[680px] mx-auto border-t border-border pt-10">
+      <h2 className="font-display font-bold text-xl tracking-tight text-fg mb-6">
+        Artikel Terkait
+      </h2>
+      <div className="flex flex-col divide-y divide-border">
+        {related.map((rel) => (
+          <div key={rel._id} className="py-5">
+            <ArticleCard artikel={rel} variant="compact" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default async function ArtikelDetailPage({ params }: ArtikelDetailPageProps) {
   const { slug } = await params;
   const artikel = await getArtikel(slug);
 
   if (!artikel) notFound();
-
-  const related: Parameters<typeof ArticleCard>[0]["artikel"][] = artikel.related ?? [];
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const pageUrl = `${siteUrl}/artikel/${slug}`;
@@ -73,7 +95,7 @@ export default async function ArtikelDetailPage({ params }: ArtikelDetailPagePro
   const pdfUrl = artikel.filePdf?.asset?.url;
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-12">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-xs font-heading text-fg-muted mb-8">
         <Link href="/artikel" className="hover:text-fg transition-colors">
@@ -145,20 +167,11 @@ export default async function ArtikelDetailPage({ params }: ArtikelDetailPagePro
         )}
       </div>
 
-      {/* Related articles */}
-      {related.length > 0 && (
-        <section className="mt-16 max-w-[680px] mx-auto border-t border-border pt-10">
-          <h2 className="font-heading font-bold text-xl tracking-tight text-fg mb-6">
-            Artikel Terkait
-          </h2>
-          <div className="flex flex-col divide-y divide-border">
-            {related.map((rel) => (
-              <div key={rel._id} className="py-5">
-                <ArticleCard artikel={rel} variant="compact" />
-              </div>
-            ))}
-          </div>
-        </section>
+      {/* Related articles — streams in after main content */}
+      {artikel.kategorRef && (
+        <Suspense fallback={null}>
+          <RelatedArticles slug={slug} kategorRef={artikel.kategorRef} />
+        </Suspense>
       )}
     </article>
   );

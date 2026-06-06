@@ -10,10 +10,10 @@ export function NasihatStrip({ nasihats }: NasihatStripProps) {
   if (nasihats.length === 0) return null;
 
   return (
-    <section className="border-y border-border py-12 bg-bg-subtle">
+    <section className="border-y border-border py-20 bg-bg-subtle">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="font-heading font-bold text-2xl tracking-tight text-fg">
+        <div className="flex items-center justify-between mb-10">
+          <h2 className="font-display font-bold text-2xl tracking-tight text-fg">
               Poster
             </h2>
           <Link
@@ -25,8 +25,8 @@ export function NasihatStrip({ nasihats }: NasihatStripProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
-          {nasihats.slice(0, 3).map((nasihat) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
+          {nasihats.slice(0, 6).map((nasihat) => (
             <NasihatCard key={nasihat._id} nasihat={nasihat} />
           ))}
         </div>
