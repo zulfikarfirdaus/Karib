@@ -18,15 +18,15 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.39.0",
     "html-to-image": "^1.11.13",
-    "next": "15.5.2",
+    "next": "15.5.19",
     "next-sanity": "^12.4.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
     "@opennextjs/cloudflare": "^1",
+    "esbuild": "^0.27.0",
     "@cloudflare/workers-types": "^4.20240208.0",
     "@opentelemetry/api": "^1.9.0",
     "@tailwindcss/postcss": "^4",
@@ -36,6 +36,6 @@
     "playwright": "^1.60.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "wrangler": "^3.99.0"
+    "wrangler": "^4"
   }
 }
