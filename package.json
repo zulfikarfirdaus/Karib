@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node scripts/dev.js",
     "build": "next build",
-    "pages:build": "npx @opennextjs/cloudflare build && cp .open-next/worker.js .open-next/assets/_worker.js",
+    "pages:build": "next build && find .next -name '._*' -delete 2>/dev/null && npx @opennextjs/cloudflare build -s && find .open-next -name '._*' -delete 2>/dev/null && node scripts/bundle-worker.mjs",
     "pages:setup": "node scripts/setup-pages.mjs",
     "start": "next start"
   },
