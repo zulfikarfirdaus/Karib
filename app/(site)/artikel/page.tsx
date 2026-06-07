@@ -1,4 +1,3 @@
-export const runtime = "edge";
 
 import { safeFetch } from "@/sanity/lib/client";
 import {
