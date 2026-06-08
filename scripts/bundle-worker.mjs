@@ -40,12 +40,9 @@ console.log("✓ _worker.js");
 copyDir(path.join(src, "cloudflare"), path.join(dest, "cloudflare"));
 console.log("✓ cloudflare/");
 
-// 3. middleware/handler.mjs
-copyFile(
-  path.join(src, "middleware", "handler.mjs"),
-  path.join(dest, "middleware", "handler.mjs")
-);
-console.log("✓ middleware/handler.mjs");
+// 3. middleware/ (handler.mjs + open-next.config.mjs + any wasm assets)
+copyDir(path.join(src, "middleware"), path.join(dest, "middleware"));
+console.log("✓ middleware/");
 
 // 4. .build/durable-objects/ (queue.js, sharded-tag-cache.js, bucket-cache-purge.js)
 copyDir(
