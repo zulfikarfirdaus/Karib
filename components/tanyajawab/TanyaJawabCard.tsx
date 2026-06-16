@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 interface TanyaJawabCardProps {
   item: {
     _id: string;
+    judul?: string;
     pertanyaan: string;
     slug: string;
     ringkasan?: string;
@@ -15,6 +16,9 @@ interface TanyaJawabCardProps {
 }
 
 export function TanyaJawabCard({ item, className }: TanyaJawabCardProps) {
+  const heading = item.judul ?? item.pertanyaan;
+  const body = item.judul ? item.pertanyaan : item.ringkasan;
+
   return (
     <article className={cn("group bg-card rounded-xl p-6 flex flex-col gap-3 hover:shadow-sm transition-shadow", className)}>
       {item.kategori && (
@@ -25,16 +29,16 @@ export function TanyaJawabCard({ item, className }: TanyaJawabCardProps) {
           {item.kategori.nama}
         </Link>
       )}
-      <Link href={`/tanya-jawab/${item.slug}`} className="flex-1">
+      <Link href={`/tanya-jawab/${item.slug}`} className="flex-1 flex flex-col gap-2">
         <h3 className="font-heading font-semibold text-base leading-snug tracking-tight text-fg group-hover:text-accent transition-colors">
-          {item.pertanyaan}
+          {heading}
         </h3>
+        {body && (
+          <p className="text-sm text-fg-muted leading-relaxed line-clamp-2 font-body">
+            {body}
+          </p>
+        )}
       </Link>
-      {item.ringkasan && (
-        <p className="text-sm text-fg-muted leading-relaxed line-clamp-2 font-body">
-          {item.ringkasan}
-        </p>
-      )}
       <p className="text-xs text-fg-muted font-heading mt-auto">{formatDate(item.tanggalTerbit)}</p>
     </article>
   );

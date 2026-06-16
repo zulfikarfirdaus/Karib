@@ -6,16 +6,25 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
+      name: "judul",
+      title: "Judul",
+      type: "string",
+      description: "Judul singkat untuk ditampilkan di kartu dan heading halaman",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "pertanyaan",
       title: "Pertanyaan",
-      type: "string",
+      type: "text",
+      rows: 4,
+      description: "Teks pertanyaan lengkap dari penanya",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
       title: "Slug URL",
       type: "slug",
-      options: { source: "pertanyaan", maxLength: 96 },
+      options: { source: "judul", maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -168,7 +177,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "pertanyaan",
+      title: "judul",
       subtitle: "kategori.nama",
     },
   },

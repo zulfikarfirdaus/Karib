@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import { DownloadSimple } from "@phosphor-icons/react/dist/csr/DownloadSimple";
 import { ShareNetwork } from "@phosphor-icons/react/dist/csr/ShareNetwork";
+import { Link } from "@phosphor-icons/react/dist/csr/Link";
+import { Check } from "@phosphor-icons/react/dist/csr/Check";
 
 const themeColors = {
   pasir: { bg: "#C96530", text: "#FFF5EC", accent: "#FFD4A8", border: "#E07840" },
@@ -21,11 +23,29 @@ interface PosterShareCardProps {
     tema?: string;
     kategori?: { nama: string; slug: string };
   };
+  pageUrl?: string;
 }
 
-export function PosterShareCard({ nasihat }: PosterShareCardProps) {
+export function PosterShareCard({ nasihat, pageUrl }: PosterShareCardProps) {
   const exportRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopyLink() {
+    if (!pageUrl) return;
+    try {
+      await navigator.clipboard.writeText(pageUrl);
+    } catch {
+      const el = document.createElement("textarea");
+      el.value = pageUrl;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   const tema = (nasihat.tema ?? "pasir") as keyof typeof themeColors;
   const c = themeColors[tema] ?? themeColors.pasir;
@@ -199,6 +219,15 @@ export function PosterShareCard({ nasihat }: PosterShareCardProps) {
           <DownloadSimple size={17} weight="bold" />
           {loading ? "Menyiapkan…" : "Unduh PNG"}
         </button>
+        {pageUrl && (
+          <button
+            onClick={handleCopyLink}
+            className="flex items-center gap-2 text-fg-muted hover:text-fg border border-border hover:border-fg-muted font-heading text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+          >
+            {copied ? <Check size={17} weight="bold" /> : <Link size={17} weight="bold" />}
+            {copied ? "Disalin!" : "Salin Tautan"}
+          </button>
+        )}
       </div>
     </>
   );

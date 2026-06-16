@@ -30,12 +30,12 @@ export async function generateMetadata({ params }: TanyaJawabDetailPageProps): P
   if (!item) return { title: "Tidak ditemukan" };
 
   return {
-    title: item.pertanyaan,
+    title: item.judul ?? item.pertanyaan,
     description: item.ringkasan ?? item.pertanyaan,
   };
 }
 
-type RelatedItem = { _id: string; pertanyaan: string; slug: string; kategori?: { nama: string; slug: string }; tanggalTerbit: string };
+type RelatedItem = { _id: string; judul?: string; pertanyaan: string; slug: string; kategori?: { nama: string; slug: string }; tanggalTerbit: string };
 
 async function RelatedTanyaJawab({ slug, kategorRef }: { slug: string; kategorRef: string }) {
   const related = await safeFetch<RelatedItem[]>(relatedTanyaJawabQuery, { slug, kategorRef }, 3600);
@@ -55,7 +55,7 @@ async function RelatedTanyaJawab({ slug, kategorRef }: { slug: string; kategorRe
               </span>
             )}
             <h3 className="font-heading font-semibold text-sm leading-snug tracking-tight text-fg group-hover:text-accent transition-colors mb-2">
-              {rel.pertanyaan}
+              {rel.judul ?? rel.pertanyaan}
             </h3>
             <p className="text-xs text-fg-muted font-heading">{formatDate(rel.tanggalTerbit)}</p>
           </Link>
@@ -106,12 +106,18 @@ export default async function TanyaJawabDetailPage({ params }: TanyaJawabDetailP
         )}
 
         <h1 className="font-heading font-semibold text-2xl sm:text-3xl md:text-4xl tracking-tight leading-tight text-fg mb-6">
-          {item.pertanyaan}
+          {item.judul ?? item.pertanyaan}
         </h1>
+
+        {item.judul && item.pertanyaan && (
+          <blockquote className="border-l-2 border-accent pl-4 mb-6 text-fg-muted font-body text-sm sm:text-base leading-relaxed">
+            {item.pertanyaan}
+          </blockquote>
+        )}
 
         <div className="flex items-center justify-between flex-wrap gap-4">
           <p className="text-xs font-heading text-fg-muted">{formatDate(item.tanggalTerbit)}</p>
-          <ShareButtons url={pageUrl} title={item.pertanyaan} />
+          <ShareButtons url={pageUrl} title={item.judul ?? item.pertanyaan} />
         </div>
       </header>
 
@@ -130,7 +136,7 @@ export default async function TanyaJawabDetailPage({ params }: TanyaJawabDetailP
 
       {/* Bottom */}
       <div className="max-w-[680px] mx-auto mt-12 pt-8 flex items-center justify-between flex-wrap gap-4">
-        <ShareButtons url={pageUrl} title={item.pertanyaan} />
+        <ShareButtons url={pageUrl} title={item.judul ?? item.pertanyaan} />
         {item.tags && item.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {item.tags.map((tag: string) => (

@@ -33,6 +33,7 @@ export const nasihatCardFragment = groq`
 // Tanya Jawab card fragment
 export const tanyaJawabCardFragment = groq`
   _id,
+  judul,
   pertanyaan,
   "slug": slug.current,
   ringkasan,
@@ -135,6 +136,7 @@ export const paginatedTanyaJawabQuery = groq`
 export const tanyaJawabDetailQuery = groq`
   *[_type == "tanyaJawab" && slug.current == $slug][0] {
     _id,
+    judul,
     pertanyaan,
     "slug": slug.current,
     ringkasan,

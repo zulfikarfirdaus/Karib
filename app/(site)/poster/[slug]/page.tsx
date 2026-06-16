@@ -7,8 +7,6 @@ import { nasihatDetailQuery, allNasihatQuery } from "@/lib/queries";
 const getNasihat = cache((slug: string) =>
   safeFetch(nasihatDetailQuery, { slug })
 );
-import { ShareButtons } from "@/components/ui/ShareButtons";
-import { formatDate } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { PosterShareCard } from "@/components/nasihat/PosterShareCard";
@@ -65,21 +63,7 @@ export default async function NasihatDetailPage({ params }: NasihatDetailPagePro
       </nav>
 
       {/* Poster preview card + share/download buttons */}
-      <PosterShareCard nasihat={nasihat} />
-
-      {/* Meta */}
-      <p className="text-xs font-heading text-fg-muted mb-6">
-        {formatDate(nasihat.tanggalTerbit)}
-      </p>
-
-      {/* Link sharing */}
-      <div className="pt-6 border-t border-border">
-        <ShareButtons url={pageUrl} title={nasihat.teks.substring(0, 80)} />
-      </div>
-
-      <p className="mt-6 text-xs text-fg-muted font-heading">
-        Bagikan poster 1080×1080 langsung ke WhatsApp, Instagram, atau simpan ke galeri.
-      </p>
+      <PosterShareCard nasihat={nasihat} pageUrl={pageUrl} />
     </div>
   );
 }
