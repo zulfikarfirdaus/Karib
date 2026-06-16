@@ -202,30 +202,45 @@ export function PosterShareCard({ nasihat, pageUrl }: PosterShareCardProps) {
       </div>
 
       {/* Action buttons */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+      <div className="flex flex-row items-center gap-2 sm:gap-3">
         <button
           onClick={handleShare}
           disabled={loading}
-          className="flex items-center gap-2 bg-accent hover:bg-accent-hover text-white font-heading text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+          className="flex flex-1 sm:flex-none items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white font-heading text-sm font-semibold px-3 sm:px-5 py-2.5 rounded-xl transition-colors disabled:opacity-60 whitespace-nowrap"
         >
           <ShareNetwork size={17} weight="bold" />
-          {loading ? "Menyiapkan…" : "Bagikan Poster"}
+          {loading ? "…" : (
+            <>
+              <span className="sm:hidden">Bagikan</span>
+              <span className="hidden sm:inline">Bagikan Poster</span>
+            </>
+          )}
         </button>
         <button
           onClick={handleDownload}
           disabled={loading}
-          className="flex items-center gap-2 text-fg-muted hover:text-fg border border-border hover:border-fg-muted font-heading text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+          className="flex flex-1 sm:flex-none items-center justify-center gap-2 text-fg-muted hover:text-fg border border-border hover:border-fg-muted font-heading text-sm font-semibold px-3 sm:px-5 py-2.5 rounded-xl transition-colors disabled:opacity-60 whitespace-nowrap"
         >
           <DownloadSimple size={17} weight="bold" />
-          {loading ? "Menyiapkan…" : "Unduh PNG"}
+          {loading ? "…" : (
+            <>
+              <span className="sm:hidden">Unduh</span>
+              <span className="hidden sm:inline">Unduh PNG</span>
+            </>
+          )}
         </button>
         {pageUrl && (
           <button
             onClick={handleCopyLink}
-            className="flex items-center gap-2 text-fg-muted hover:text-fg border border-border hover:border-fg-muted font-heading text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+            className="flex flex-1 sm:flex-none items-center justify-center gap-2 text-fg-muted hover:text-fg border border-border hover:border-fg-muted font-heading text-sm font-semibold px-3 sm:px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap"
           >
             {copied ? <Check size={17} weight="bold" /> : <Link size={17} weight="bold" />}
-            {copied ? "Disalin!" : "Salin Tautan"}
+            {copied ? "Disalin!" : (
+              <>
+                <span className="sm:hidden">Salin</span>
+                <span className="hidden sm:inline">Salin Tautan</span>
+              </>
+            )}
           </button>
         )}
       </div>
