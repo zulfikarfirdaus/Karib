@@ -5,6 +5,7 @@ import { TanyaKaribModal } from "@/components/tanyajawab/TanyaKaribModal";
 
 interface TanyaJawabItem {
   _id: string;
+  judul?: string;
   pertanyaan: string;
   slug: string;
   ringkasan?: string;
@@ -42,7 +43,7 @@ export function TanyaJawabStrip({ items }: TanyaJawabStripProps) {
             )}
             <Link href={`/tanya-jawab/${item.slug}`}>
               <h3 className="font-heading font-semibold text-base leading-snug tracking-tight text-fg group-hover:text-accent transition-colors line-clamp-3">
-                {item.pertanyaan}
+                {item.judul ?? item.pertanyaan}
               </h3>
             </Link>
             <p className="text-xs text-fg-muted font-heading mt-2">

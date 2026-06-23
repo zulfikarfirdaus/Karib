@@ -27,19 +27,6 @@ export default defineType({
       validation: (Rule) => Rule.required().max(300),
     }),
     defineField({
-      name: "gambarUtama",
-      title: "Gambar Utama",
-      type: "image",
-      options: { hotspot: true },
-      fields: [
-        defineField({
-          name: "alt",
-          title: "Alt text",
-          type: "string",
-        }),
-      ],
-    }),
-    defineField({
       name: "kategori",
       title: "Kategori",
       type: "reference",
@@ -268,7 +255,6 @@ export default defineType({
     select: {
       title: "judul",
       subtitle: "kategori.nama",
-      media: "gambarUtama",
     },
   },
 });

@@ -7,9 +7,7 @@ import { ArticleBody } from "@/components/artikel/ArticleBody";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { PDFViewer } from "@/components/artikel/PDFViewer";
 import { ShareButtons } from "@/components/ui/ShareButtons";
-import { urlFor } from "@/lib/imageUrl";
 import { formatDate, estimateReadingTime } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -38,9 +36,6 @@ export async function generateMetadata({ params }: ArtikelDetailPageProps): Prom
     openGraph: {
       title: artikel.judul,
       description: artikel.ringkasan,
-      images: artikel.gambarUtama?.asset
-        ? [urlFor(artikel.gambarUtama).width(1200).height(630).url()]
-        : [],
     },
   };
 }
@@ -86,10 +81,6 @@ export default async function ArtikelDetailPage({ params }: ArtikelDetailPagePro
     : "";
 
   const readingTime = estimateReadingTime(bodyText);
-
-  const imageUrl = artikel.gambarUtama?.asset
-    ? urlFor(artikel.gambarUtama).width(1200).height(600).url()
-    : null;
 
   const pdfUrl = artikel.filePdf?.asset?.url;
 

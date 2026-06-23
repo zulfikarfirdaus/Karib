@@ -34,12 +34,9 @@ export default async function NasihatPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-12">
       <div className="mb-10">
-        <h1 className="font-display font-bold text-4xl tracking-tighter leading-none text-fg mb-3">
+        <h1 className="font-display font-bold text-4xl tracking-tighter leading-none text-fg">
           Poster
         </h1>
-        <p className="text-sm text-fg-muted font-body whitespace-nowrap">
-          Nasihat dan hikmah dari para pendahulu, sebagai pengingat dalam perjalanan sehari-hari.
-        </p>
       </div>
 
       <Suspense

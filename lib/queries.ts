@@ -13,7 +13,6 @@ export const artikelCardFragment = groq`
   judul,
   "slug": slug.current,
   ringkasan,
-  gambarUtama { asset->, alt },
   ${kategoriFragment},
   tanggalTerbit,
   tags
@@ -99,7 +98,6 @@ export const artikelDetailQuery = groq`
     judul,
     "slug": slug.current,
     ringkasan,
-    gambarUtama { asset->, alt },
     ${kategoriFragment},
     "kategorRef": kategori._ref,
     isi,
