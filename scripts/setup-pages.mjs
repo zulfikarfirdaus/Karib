@@ -21,7 +21,7 @@ const CF_ACCOUNT_ID  = 'c057790ce7e574569a70da0c021e9037';
 const CF_PROJECT     = 'karib';
 const GITHUB_OWNER   = 'zulfikarfirdaus';
 const GITHUB_REPO    = 'Karib';
-const SITE_URL       = 'https://karib.pages.dev';
+const SITE_URL       = 'https://karib.org';
 const SANITY_API_VER = '2024-01-01';
 
 // ---------------------------------------------------------------------------
