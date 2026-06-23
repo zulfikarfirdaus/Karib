@@ -7,6 +7,7 @@ import { ArticleBody } from "@/components/artikel/ArticleBody";
 import { ArticleCard } from "@/components/artikel/ArticleCard";
 import { PDFViewer } from "@/components/artikel/PDFViewer";
 import { ShareButtons } from "@/components/ui/ShareButtons";
+import { CopyWithSource } from "@/components/ui/CopyWithSource";
 import { formatDate, estimateReadingTime } from "@/lib/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -138,7 +139,11 @@ export default async function ArtikelDetailPage({ params }: ArtikelDetailPagePro
       )}
 
       {/* Article body */}
-      {artikel.isi && <ArticleBody content={artikel.isi} />}
+      {artikel.isi && (
+        <CopyWithSource title={artikel.judul} url={pageUrl}>
+          <ArticleBody content={artikel.isi} />
+        </CopyWithSource>
+      )}
 
       {/* Bottom share */}
       <div className="max-w-[680px] mx-auto mt-12 pt-8 flex items-center justify-between flex-wrap gap-4">

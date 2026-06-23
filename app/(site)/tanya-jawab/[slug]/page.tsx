@@ -6,6 +6,7 @@ import { tanyaJawabDetailQuery, relatedTanyaJawabQuery, allTanyaJawabQuery } fro
 import { ArticleBody } from "@/components/artikel/ArticleBody";
 import { TanyaKaribForm } from "@/components/tanyajawab/TanyaKaribForm";
 import { ShareButtons } from "@/components/ui/ShareButtons";
+import { CopyWithSource } from "@/components/ui/CopyWithSource";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -130,7 +131,9 @@ export default async function TanyaJawabDetailPage({ params }: TanyaJawabDetailP
               Jawaban Ustadz
             </p>
           </div>
-          <ArticleBody content={item.jawaban} />
+          <CopyWithSource title={item.judul ?? item.pertanyaan} url={pageUrl}>
+            <ArticleBody content={item.jawaban} />
+          </CopyWithSource>
         </div>
       )}
 
