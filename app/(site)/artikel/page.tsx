@@ -57,7 +57,7 @@ async function ArtikelList({ searchParams }: { searchParams: Promise<{ kategori?
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {artikels.map((artikel: Parameters<typeof ArticleCard>[0]["artikel"]) => (
           <ArticleCard key={artikel._id} artikel={artikel} variant="default" />
         ))}
@@ -86,13 +86,13 @@ export default async function ArtikelPage({ searchParams }: ArtikelPageProps) {
 
       <Suspense
         fallback={
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="animate-pulse">
-                <div className="aspect-[16/10] bg-card rounded-xl mb-4" />
-                <div className="h-3 bg-card rounded w-1/3 mb-2" />
-                <div className="h-5 bg-card rounded mb-2" />
-                <div className="h-4 bg-card rounded w-2/3" />
+              <div key={i} className="bg-card rounded-xl p-6 flex flex-col gap-3 animate-pulse">
+                <div className="h-3 bg-border rounded w-1/4" />
+                <div className="h-5 bg-border rounded w-3/4" />
+                <div className="h-4 bg-border rounded w-full" />
+                <div className="h-3 bg-border rounded w-1/3 mt-2" />
               </div>
             ))}
           </div>

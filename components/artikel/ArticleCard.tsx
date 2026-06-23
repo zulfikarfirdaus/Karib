@@ -61,24 +61,24 @@ export function ArticleCard({ artikel, variant = "default", className }: Article
 
   // default card
   return (
-    <article className={cn("group flex flex-col", className)}>
+    <article className={cn("group bg-card rounded-xl p-6 flex flex-col gap-3 hover:shadow-sm transition-shadow", className)}>
       {artikel.kategori && (
         <Link
           href={`/kategori/${artikel.kategori.slug}`}
-          className="text-[10px] font-heading uppercase tracking-widest text-accent hover:text-accent-hover mb-1"
+          className="text-[10px] font-heading uppercase tracking-widest text-accent hover:text-accent-hover"
         >
           {artikel.kategori.nama}
         </Link>
       )}
-      <Link href={`/artikel/${artikel.slug}`}>
-        <h3 className="font-heading font-semibold text-lg leading-snug tracking-tight text-fg group-hover:text-accent transition-colors line-clamp-2 mb-2">
+      <Link href={`/artikel/${artikel.slug}`} className="flex-1 flex flex-col gap-2">
+        <h3 className="font-heading font-semibold text-base leading-snug tracking-tight text-fg group-hover:text-accent transition-colors">
           {artikel.judul}
         </h3>
+        <p className="text-sm text-fg-muted leading-relaxed line-clamp-2 font-body">
+          {artikel.ringkasan}
+        </p>
       </Link>
-      <p className="text-sm text-fg-muted leading-relaxed line-clamp-2 font-body mb-3 flex-1">
-        {artikel.ringkasan}
-      </p>
-      <p className="text-xs text-fg-muted font-heading">{formatDate(artikel.tanggalTerbit)}</p>
+      <p className="text-xs text-fg-muted font-heading mt-auto">{formatDate(artikel.tanggalTerbit)}</p>
     </article>
   );
 }
