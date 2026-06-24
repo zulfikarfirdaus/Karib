@@ -17,10 +17,17 @@ export function KaribAnimatedLogo() {
 
   const [navLeft, setNavLeft] = useState(16);
   useEffect(() => {
+    let lastWidth = window.innerWidth;
     const update = () => setNavLeft(window.innerWidth >= 640 ? 24 : 16);
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    // Only react to width changes — ignore mobile URL-bar height-only resizes
+    const onResize = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      update();
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   // Read --fg for nav color (respects theme changes)
@@ -64,22 +71,32 @@ export function KaribAnimatedLogo() {
       setHeroPos(null);
       return;
     }
+    let lastWidth = window.innerWidth;
     function measure() {
       const el = document.querySelector<HTMLElement>("[data-hero-wordmark]");
       if (!el) return;
       const rect = el.getBoundingClientRect();
       setHeroPos({
         left: rect.left,
-        top: rect.top,
+        // Document-relative top so re-measuring mid-scroll stays consistent
+        // (at scroll 0 this equals the viewport top, where the morph begins)
+        top: rect.top + window.scrollY,
         fontSize: parseFloat(getComputedStyle(el).fontSize),
       });
     }
     measure();
     const retry = setTimeout(measure, 100);
-    window.addEventListener("resize", measure);
+    // Only re-measure on width changes — mobile URL-bar show/hide fires resize
+    // mid-scroll and would otherwise re-render + remap the morph (the glitch)
+    const onResize = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      measure();
+    };
+    window.addEventListener("resize", onResize);
     return () => {
       clearTimeout(retry);
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", onResize);
     };
   }, [isHome]);
 

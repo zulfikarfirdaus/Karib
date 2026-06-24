@@ -4,7 +4,7 @@ import { cache, Suspense } from "react";
 import { safeFetch } from "@/sanity/lib/client";
 import { tanyaJawabDetailQuery, relatedTanyaJawabQuery, allTanyaJawabQuery } from "@/lib/queries";
 import { ArticleBody } from "@/components/artikel/ArticleBody";
-import { TanyaKaribForm } from "@/components/tanyajawab/TanyaKaribForm";
+import { TanyaKaribDialog } from "@/components/tanyajawab/TanyaKaribDialog";
 import { ShareButtons } from "@/components/ui/ShareButtons";
 import { CopyWithSource } from "@/components/ui/CopyWithSource";
 import { formatDate } from "@/lib/utils";
@@ -47,7 +47,7 @@ async function RelatedTanyaJawab({ slug, kategorRef }: { slug: string; kategorRe
       <p className="text-xs font-heading uppercase tracking-widest text-fg-muted mb-5">
         Tanya Jawab Lainnya
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 gap-4 sm:gap-6">
         {related.map((rel) => (
           <Link key={rel._id} href={`/tanya-jawab/${rel.slug}`} className="group">
             {rel.kategori && (
@@ -110,22 +110,30 @@ export default async function TanyaJawabDetailPage({ params }: TanyaJawabDetailP
           {item.judul ?? item.pertanyaan}
         </h1>
 
-        {item.judul && item.pertanyaan && (
-          <blockquote className="border-l-2 border-accent pl-4 mb-6 text-fg-muted font-body text-sm sm:text-base leading-relaxed">
-            {item.pertanyaan}
-          </blockquote>
-        )}
-
         <div className="flex items-center justify-between flex-wrap gap-4">
           <p className="text-xs font-heading text-fg-muted">{formatDate(item.tanggalTerbit)}</p>
           <ShareButtons url={pageUrl} title={item.judul ?? item.pertanyaan} />
         </div>
+
+        {item.judul && item.pertanyaan && (
+          <div className="mt-10">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-2 h-2 rounded-full bg-fg-muted shrink-0" />
+              <p className="font-heading text-xs font-semibold uppercase tracking-widest text-fg-muted">
+                Pertanyaan
+              </p>
+            </div>
+            <div className="inline-block max-w-full bg-card border border-border rounded-2xl rounded-tl-sm px-5 py-4 text-fg-muted font-body text-sm sm:text-base leading-relaxed">
+              {item.pertanyaan}
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Answer */}
       {item.jawaban && (
         <div className="max-w-[680px] mx-auto">
-          <div className="flex items-center gap-3 mb-8 pb-6 border-b border-border">
+          <div className="flex items-center gap-3 mb-8">
             <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
             <p className="font-heading text-xs font-semibold uppercase tracking-widest text-fg-muted">
               Jawaban Ustadz
@@ -162,20 +170,7 @@ export default async function TanyaJawabDetailPage({ params }: TanyaJawabDetailP
       )}
 
       {/* Tanya Karib */}
-      <div className="mt-16 max-w-[680px] mx-auto bg-white dark:bg-card rounded-2xl px-4 sm:px-8 py-10">
-        <div className="mb-6">
-          <p className="text-xs font-heading uppercase tracking-widest text-accent mb-2">
-            Tanya Karib
-          </p>
-          <h2 className="font-display font-bold text-2xl tracking-tight text-fg">
-            Ada Pertanyaan?
-          </h2>
-          <p className="mt-2 text-sm font-body text-fg-muted">
-            Kirim pertanyaanmu, jika terpilih maka akan Ustadz jawab dan diterbitkan di website ini.
-          </p>
-        </div>
-        <TanyaKaribForm />
-      </div>
+      <TanyaKaribDialog />
     </article>
   );
 }
