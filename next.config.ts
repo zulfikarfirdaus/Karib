@@ -49,6 +49,24 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./lib/sanityImageLoader.ts",
   },
+  // HSTS: tell browsers to always use HTTPS for karib.org (and subdomains)
+  // *before* any request leaves the device. Without this, typing the bare
+  // domain ("karib.org") triggers a plaintext HTTP request that mobile
+  // carrier proxies can intercept and re-render mangled. 2 years + preload
+  // makes the domain eligible for the browser HSTS preload list.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ],
+      },
+    ];
+  },
   experimental: {
     optimizePackageImports: ["framer-motion", "@phosphor-icons/react"],
   },
