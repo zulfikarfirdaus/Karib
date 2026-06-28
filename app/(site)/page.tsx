@@ -8,7 +8,8 @@ import { TanyaJawabStrip } from "@/components/home/TanyaJawabStrip";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Beranda",
+  // `absolute` bypasses the "%s | Karib" template so the home tab is just "Karib"
+  title: { absolute: "Karib" },
 };
 
 export default async function HomePage() {
